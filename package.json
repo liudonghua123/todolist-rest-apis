@@ -4,7 +4,7 @@
   "description": "Todolist Application Backend which holds the REST apis",
   "main": "dist",
   "scripts": {
-    "dev": "npm run docs && nodemon -w src --exec \"babel-node src --presets es2015,stage-0 && killall node\"",
+    "dev": "npm run docs && nodemon -w src --exec \"babel-node --inspect src --presets es2015,stage-0 && killall node\"",
     "build": "npm run docs && babel src -s -D -d dist --presets es2015,stage-0",
     "docs": "apidoc -i src/api -o docs/",
     "start": "node dist",
