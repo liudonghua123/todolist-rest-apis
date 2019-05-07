@@ -7,61 +7,61 @@ import lists from './lists';
  */
 
 export default ({ config, db }) => {
-	let api = Router();
+  let api = Router();
 
   /**
    * @api {get} /lists Fetch all lists
    * @apiGroup Lists
-   * 
-	 * @apiUse AuthHeader
-	 * 
+   *
+   * @apiUse AuthHeader
+   *
    * @apiSuccess {Boolean} error false
    * @apiSuccess {Array} lists Array of lists
    */
 
-	api.get('/', (req, res) => lists({ req, res, config, db }).fetchAll());
+  api.get('/', (req, res) => lists({ req, res, config, db }).fetchAll());
 
   /**
    * @api {post} /lists Create a new list
    * @apiGroup Lists
-   * 
-	 * @apiUse AuthHeader
-	 * 
-	 * @apiParam {Object[]} items Array of item
-	 * @apiParam {String} -.text Text of task
-	 * @apiParam {Boolean} -.isCompleted Represents if task is completed (default: false)
-	 *
+   *
+   * @apiUse AuthHeader
+   *
+   * @apiParam {Object[]} items Array of item
+   * @apiParam {String} -.text Text of task
+   * @apiParam {Boolean} -.isCompleted Represents if task is completed (default: false)
+   *
    * @apiSuccess {Boolean} error false
    * @apiSuccess {Object} savedList Newly created list
    */
 
-	api.post('/', (req, res) => lists({ req, res, config, db }).create());
+  api.post('/', (req, res) => lists({ req, res, config, db }).create());
 
   /**
    * @api {put} /lists/:id Update a list
    * @apiGroup Lists
-   * 
-	 * @apiUse AuthHeader
-	 * 
-	 * @apiParam {Object[]} items Array of item
-	 * @apiParam {String} -.text Text of task
-	 * @apiParam {Boolean} -.isCompleted Represents if task is completed
-	 *
+   *
+   * @apiUse AuthHeader
+   *
+   * @apiParam {Object[]} items Array of item
+   * @apiParam {String} -.text Text of task
+   * @apiParam {Boolean} -.isCompleted Represents if task is completed
+   *
    * @apiSuccess {Boolean} error false
    */
 
-	api.put('/:id', (req, res) => lists({ req, res, config, db }).updateList());
+  api.put('/:id', (req, res) => lists({ req, res, config, db }).update());
 
   /**
    * @api {delete} /lists/:id Delete a list
    * @apiGroup Lists
-   * 
-	 * @apiUse AuthHeader
-	 *
+   *
+   * @apiUse AuthHeader
+   *
    * @apiSuccess {Boolean} error false
    */
 
-	api.delete('/:id', (req, res) => lists({ req, res, config, db }).deleteList());
+  api.delete('/:id', (req, res) => lists({ req, res, config, db }).delete());
 
-	return api;
-}
+  return api;
+};

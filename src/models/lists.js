@@ -5,12 +5,19 @@ const List = new Schema({
     type: SchemaTypes.ObjectId,
     required: true
   },
-  items: [{
-    text: { type: String, required: true },
-    isCompleted: { type: Boolean, default: false }
-  }]
+  text: { type: String, required: true },
+  isCompleted: { type: Boolean, default: false }
 });
 
-const ListModel = (db) => db.model('list', List);
+// https://stackoverflow.com/questions/11160955/how-to-exclude-some-fields-from-the-document
+List.set('toJSON', {
+  transform: function(doc, ret, options) {
+    delete ret.userId;
+    delete ret.__v;
+    return ret;
+  }
+});
+
+const ListModel = db => db.model('list', List);
 
 export default ListModel;
