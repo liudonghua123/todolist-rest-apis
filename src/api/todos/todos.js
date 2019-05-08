@@ -28,6 +28,8 @@ export default ({ req, res, config, db }) => ({
       {
         $set: req.body
       },
+      // https://stackoverflow.com/questions/30419575/mongoose-findbyidandupdate-not-returning-correct-model
+      { new: true },
       (err, result) => {
         if (err) return toRes(res, 500)(mongooseErrorHandler(err));
         toRes(res)(null, { data: result });
