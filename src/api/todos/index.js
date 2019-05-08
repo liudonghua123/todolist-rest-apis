@@ -63,5 +63,16 @@ export default ({ config, db }) => {
 
   api.delete('/:id', (req, res) => todos({ req, res, config, db }).delete());
 
+  /**
+   * @api {delete} /todos/ Delete a list
+   * @apiGroup todos
+   *
+   * @apiUse AuthHeader
+   *
+   * @apiSuccess {Boolean} error false
+   */
+
+  api.delete('/', (req, res) => todos({ req, res, config, db }).batchDelete());
+
   return api;
 };
