@@ -1,6 +1,6 @@
 import { Schema, SchemaTypes } from 'mongoose';
 
-const List = new Schema({
+const Todo = new Schema({
   userId: {
     type: SchemaTypes.ObjectId,
     required: true
@@ -10,7 +10,7 @@ const List = new Schema({
 });
 
 // https://stackoverflow.com/questions/11160955/how-to-exclude-some-fields-from-the-document
-List.set('toJSON', {
+Todo.set('toJSON', {
   transform: function(doc, ret, options) {
     delete ret.userId;
     delete ret.__v;
@@ -18,6 +18,6 @@ List.set('toJSON', {
   }
 });
 
-const ListModel = db => db.model('list', List);
+const TodoModel = db => db.model('todo', Todo);
 
-export default ListModel;
+export default TodoModel;

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import lists from './lists';
+import todos from './todos';
 
 /**
  * @apiDefine AuthHeader
@@ -10,20 +10,20 @@ export default ({ config, db }) => {
   let api = Router();
 
   /**
-   * @api {get} /lists Fetch all lists
-   * @apiGroup Lists
+   * @api {get} /todos Fetch all todos
+   * @apiGroup todos
    *
    * @apiUse AuthHeader
    *
    * @apiSuccess {Boolean} error false
-   * @apiSuccess {Array} lists Array of lists
+   * @apiSuccess {Array} todos Array of todos
    */
 
-  api.get('/', (req, res) => lists({ req, res, config, db }).fetchAll());
+  api.get('/', (req, res) => todos({ req, res, config, db }).fetchAll());
 
   /**
-   * @api {post} /lists Create a new list
-   * @apiGroup Lists
+   * @api {post} /todos Create a new list
+   * @apiGroup todos
    *
    * @apiUse AuthHeader
    *
@@ -35,11 +35,11 @@ export default ({ config, db }) => {
    * @apiSuccess {Object} savedList Newly created list
    */
 
-  api.post('/', (req, res) => lists({ req, res, config, db }).create());
+  api.post('/', (req, res) => todos({ req, res, config, db }).create());
 
   /**
-   * @api {put} /lists/:id Update a list
-   * @apiGroup Lists
+   * @api {put} /todos/:id Update a list
+   * @apiGroup todos
    *
    * @apiUse AuthHeader
    *
@@ -50,18 +50,18 @@ export default ({ config, db }) => {
    * @apiSuccess {Boolean} error false
    */
 
-  api.put('/:id', (req, res) => lists({ req, res, config, db }).update());
+  api.put('/:id', (req, res) => todos({ req, res, config, db }).update());
 
   /**
-   * @api {delete} /lists/:id Delete a list
-   * @apiGroup Lists
+   * @api {delete} /todos/:id Delete a list
+   * @apiGroup todos
    *
    * @apiUse AuthHeader
    *
    * @apiSuccess {Boolean} error false
    */
 
-  api.delete('/:id', (req, res) => lists({ req, res, config, db }).delete());
+  api.delete('/:id', (req, res) => todos({ req, res, config, db }).delete());
 
   return api;
 };

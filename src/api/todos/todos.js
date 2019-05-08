@@ -1,16 +1,16 @@
-import ListModel from '../../models/lists';
+import TodoModel from '../../models/todos';
 import { toRes, mongooseErrorHandler } from './../../lib/util';
 
 export default ({ req, res, config, db }) => ({
   fetchAll() {
-    ListModel(db).find({ userId: req.user._id }, (err, result) => {
+    TodoModel(db).find({ userId: req.user._id }, (err, result) => {
       if (err) return toRes(res, 500)(mongooseErrorHandler(err));
       toRes(res)(null, { data: result });
     });
   },
 
   create() {
-    ListModel(db).create(
+    TodoModel(db).create(
       {
         userId: req.user._id,
         ...req.body
@@ -23,7 +23,7 @@ export default ({ req, res, config, db }) => ({
   },
 
   update() {
-    ListModel(db).findByIdAndUpdate(
+    TodoModel(db).findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body
@@ -36,7 +36,7 @@ export default ({ req, res, config, db }) => ({
   },
 
   delete() {
-    ListModel(db).find({ _id: req.params.id }, (err, result) => {
+    TodoModel(db).find({ _id: req.params.id }, (err, result) => {
       if (err) return toRes(res, 404)(mongooseErrorHandler(err));
       if (result.length === 0) {
         return toRes(res, 404)({ message: 'item not found' });
