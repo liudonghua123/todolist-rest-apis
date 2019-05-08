@@ -3,6 +3,15 @@ import { Router } from 'express';
 import users from './users';
 import todos from './todos';
 
+/**
+ * @swagger
+ * securityDefinitions:
+ *   ApiKeyAuth:        # arbitrary name for the security scheme
+ *     type: apiKey
+ *     in: header       # can be "header", "query" or "cookie"
+ *     name: Authorization  # name of the header, query parameter or cookie
+ *
+ */
 export default ({ config, db }) => {
   let api = Router();
 

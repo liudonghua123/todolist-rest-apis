@@ -18,7 +18,56 @@ export default ({ config, db }) => {
    * @apiSuccess {Boolean} error false
    * @apiSuccess {Array} todos Array of todos
    */
-
+  /**
+   * @swagger
+   * definitions:
+   *   Todo:
+   *     type: object
+   *     properties:
+   *       text:
+   *         type: string
+   *         example: 'todo-item'
+   *       isCompleted:
+   *         type: boolean
+   *         example: false
+   *   TodoResponse:
+   *     type: object
+   *     properties:
+   *       code:
+   *         type: integer
+   *         example: 0
+   *       data:
+   *         type: object
+   *         $ref: '#/definitions/Todo'
+   *   TodosResponse:
+   *     type: object
+   *     properties:
+   *       code:
+   *         type: integer
+   *         example: 0
+   *       data:
+   *         type: array
+   *         items:
+   *          $ref: '#/definitions/Todo'
+   */
+  /**
+   * @swagger
+   * /todos:
+   *    get:
+   *      tags:
+   *      - Todo
+   *      security:
+   *        - ApiKeyAuth: []
+   *      description: get all todos
+   *      summary: get todos
+   *      produces:
+   *      - application/json
+   *      responses:
+   *        200:
+   *          description: return the created todo
+   *          schema:
+   *            $ref: '#/definitions/TodosResponse'
+   */
   api.get('/', (req, res) => todos({ req, res, config, db }).fetchAll());
 
   /**
@@ -35,6 +84,33 @@ export default ({ config, db }) => {
    * @apiSuccess {Object} savedList Newly created list
    */
 
+  /**
+   * @swagger
+   * /todos:
+   *    post:
+   *      tags:
+   *      - Todo
+   *      security:
+   *        - ApiKeyAuth: []
+   *      description: create a todo
+   *      summary: create todo
+   *      produces:
+   *      - application/json
+   *      parameters:
+   *        - name: todo
+   *          description: todo object
+   *          in:  body
+   *          required: true
+   *          type: object
+   *          schema:
+   *            $ref: '#/definitions/Todo'
+   *      responses:
+   *        200:
+   *          description: return the created todo
+   *          schema:
+   *            $ref: '#/definitions/TodoResponse'
+   *
+   */
   api.post('/', (req, res) => todos({ req, res, config, db }).create());
 
   /**
@@ -50,6 +126,38 @@ export default ({ config, db }) => {
    * @apiSuccess {Boolean} error false
    */
 
+  /**
+   * @swagger
+   * /todos/{id}:
+   *    put:
+   *      tags:
+   *      - Todo
+   *      security:
+   *        - ApiKeyAuth: []
+   *      description: update a todo
+   *      summary: update todo
+   *      produces:
+   *      - application/json
+   *      parameters:
+   *        - name: id
+   *          description: id of the todo
+   *          in:  path
+   *          required: true
+   *          type: string
+   *        - name: todo
+   *          description: todo object
+   *          in:  body
+   *          required: true
+   *          type: object
+   *          schema:
+   *            $ref: '#/definitions/Todo'
+   *      responses:
+   *        200:
+   *          description: return the created todo
+   *          schema:
+   *            $ref: '#/definitions/TodoResponse'
+   *
+   */
   api.put('/:id', (req, res) => todos({ req, res, config, db }).update());
 
   /**
@@ -61,6 +169,31 @@ export default ({ config, db }) => {
    * @apiSuccess {Boolean} error false
    */
 
+  /**
+   * @swagger
+   * /todos/{id}:
+   *    delete:
+   *      tags:
+   *      - Todo
+   *      security:
+   *        - ApiKeyAuth: []
+   *      description: delete a todo
+   *      summary: delete todo
+   *      produces:
+   *      - application/json
+   *      parameters:
+   *        - name: id
+   *          description: id of the todo
+   *          in:  path
+   *          required: true
+   *          type: integer
+   *      responses:
+   *        200:
+   *          description: return the deleted todo
+   *          schema:
+   *            $ref: '#/definitions/TodoResponse'
+   *
+   */
   api.delete('/:id', (req, res) => todos({ req, res, config, db }).delete());
 
   /**
@@ -72,6 +205,36 @@ export default ({ config, db }) => {
    * @apiSuccess {Boolean} error false
    */
 
+  /**
+   * @swagger
+   * /todos:
+   *    delete:
+   *      tags:
+   *      - Todo
+   *      security:
+   *        - ApiKeyAuth: []
+   *      description: delete todos
+   *      summary: delete todos
+   *      produces:
+   *      - application/json
+   *      parameters:
+   *        - name: _ids
+   *          description: the id array of the remove todo
+   *          in:  body
+   *          required: true
+   *          type: object
+   *          properties:
+   *            _ids:
+   *              type: array
+   *              items:
+   *                type: string
+   *      responses:
+   *        200:
+   *          description: return the deleted todo
+   *          schema:
+   *            $ref: '#/definitions/TodosResponse'
+   *
+   */
   api.delete('/', (req, res) => todos({ req, res, config, db }).batchDelete());
 
   return api;
