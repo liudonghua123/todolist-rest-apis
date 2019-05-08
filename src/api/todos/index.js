@@ -101,7 +101,6 @@ export default ({ config, db }) => {
    *          description: todo object
    *          in:  body
    *          required: true
-   *          type: object
    *          schema:
    *            $ref: '#/definitions/Todo'
    *      responses:
@@ -148,7 +147,6 @@ export default ({ config, db }) => {
    *          description: todo object
    *          in:  body
    *          required: true
-   *          type: object
    *          schema:
    *            $ref: '#/definitions/Todo'
    *      responses:
@@ -222,12 +220,12 @@ export default ({ config, db }) => {
    *          description: the id array of the remove todo
    *          in:  body
    *          required: true
-   *          type: object
-   *          properties:
-   *            _ids:
-   *              type: array
-   *              items:
-   *                type: string
+   *          schema:
+   *            properties:
+   *              _ids:
+   *                type: array
+   *                items:
+   *                  type: string
    *      responses:
    *        200:
    *          description: return the deleted todo

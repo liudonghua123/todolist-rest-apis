@@ -55,7 +55,6 @@ export default ({ config, db }) => {
    *          description: user object
    *          in:  body
    *          required: true
-   *          type: object
    *          schema:
    *            $ref: '#/definitions/User'
    *      responses:
@@ -94,7 +93,6 @@ export default ({ config, db }) => {
    *          description: user object
    *          in:  body
    *          required: true
-   *          type: object
    *          schema:
    *            $ref: '#/definitions/User'
    *      responses:
