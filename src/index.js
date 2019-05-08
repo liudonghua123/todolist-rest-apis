@@ -26,7 +26,7 @@ const options = {
     basePath: '/api' // the basepath of your endpoint
   },
   // path to the API docs
-  apis: ['./src/api/**/*.js']
+  apis: ['./src/api/**/*.js', '.././src/api/**/*.js']
 };
 // initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
